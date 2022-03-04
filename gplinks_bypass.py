@@ -1,5 +1,6 @@
 import time
 import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -9,11 +10,11 @@ url = "" # eg: https://gplinks.co/XXXX
 # ==============================================
 
 def gplinks_bypass(url):
-    client = requests.Session()
-    res = client.get(url)
+    scraper = cloudscraper.create_scraper(allow_brotli=False)
+    res = scraper.get(url)
     
     h = { "referer": res.url }
-    res = client.get(url, headers=h)
+    res = scraper.get(url, headers=h)
     
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
@@ -28,7 +29,7 @@ def gplinks_bypass(url):
     
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
-    res = client.post(final_url, data=data, headers=h).json()
+    res = scraper.post(final_url, data=data, headers=h).json()
 
     return res
 
