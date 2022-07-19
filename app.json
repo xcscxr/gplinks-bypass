@@ -1,0 +1,24 @@
+{
+    "name": "Telegram Gplink Bot",
+    "description": "Telegram Gplink Bypass Bot",
+    "repository": "https://github.com/uhdservice/gplinks-bypass",
+    "env": {
+        "BOT_TOKEN": {
+            "description": "telegram bot token here",
+            "required": true
+        },
+        "API_ID": {
+            "description": "telegram api id here",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "telegram api hash here",
+            "required": true
+        }
+    },
+    "addons": [
+        {
+            "plan": "heroku-postgresql"
+        }
+    ]
+}
