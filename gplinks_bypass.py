@@ -3,6 +3,19 @@ import cloudscraper
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
+API_ID = os.environ.get("API_ID")
+API_HASH = os.environ.get("API_HASH")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
+
+
+bot = Client(
+    "AnimeNews" ,
+    api_id = API_ID ,
+    api_hash = API_HASH ,
+    bot_token = BOT_TOKEN
+)
+
 # eg: https://gplinks.co/XXXX
 url = ""
 
