@@ -15,9 +15,10 @@ def gplinks_bypass(url: str):
 
     res = client.head(url)
     header_loc = res.headers['location']
-    param = header_loc.split('postid=')[-1]
-    req_url = f'{p.scheme}://{p.netloc}/{param}'
+    url = url[:-1] if url[-1] == '/' else url
 
+    param = url.split("/")[-1]
+    req_url = f'{p.scheme}://{p.netloc}/{param}'
     p = urlparse(header_loc)
     ref_url = f'{p.scheme}://{p.netloc}/'
 
