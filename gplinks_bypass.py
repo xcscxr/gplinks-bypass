@@ -15,15 +15,12 @@ def gplinks_bypass(url: str):
 
     res = client.head(url)
     header_loc = res.headers['location']
-    url = url[:-1] if url[-1] == '/' else url
-
-    param = url.split("/")[-1]
-    req_url = f'{p.scheme}://{p.netloc}/{param}'
+    
     p = urlparse(header_loc)
     ref_url = f'{p.scheme}://{p.netloc}/'
 
     h = { 'referer': ref_url }
-    res = client.get(req_url, headers=h, allow_redirects=False)
+    res = client.get(url, headers=h, allow_redirects=False)
 
     bs4 = BeautifulSoup(res.content, 'html.parser')
     inputs = bs4.find_all('input')
