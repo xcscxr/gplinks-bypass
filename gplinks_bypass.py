@@ -1,7 +1,7 @@
 
 
 import time
-
+import cloudscraper
 from bs4 import BeautifulSoup
 
 import requests
@@ -11,15 +11,10 @@ url = "https://gplinks.co/Z94r6"
 # =======================================
 
 def gplinks_bypass(url: str):
- 
- url = url[:-1] if url[-1] == '/' else url
- token = url.split("/")[-1]
-    
+ client = cloudscraper.create_scraper(allow_brotli=False)  
  domain ="https://gplinks.co/"
  referer = "https://mynewsmedia.co/"
 
-    
- client = requests.Session()
  vid = client.get(url, allow_redirects= False).headers["Location"].split("=")[-1]
  url = f"{url}/?{vid}"
 
@@ -30,8 +25,7 @@ def gplinks_bypass(url: str):
  inputs = soup.find(id="go-link").find_all(name="input")
  data = { input.get('name'): input.get('value') for input in inputs }
     
-
- time.sleep(5)
+ time.sleep(10)
  headers={"x-requested-with": "XMLHttpRequest"}
  bypassed_url = client.post(domain+"links/go", data=data, headers=headers).json()["url"]
  return bypassed_url
